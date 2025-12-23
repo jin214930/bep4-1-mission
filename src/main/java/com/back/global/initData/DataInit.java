@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Configuration
 @Slf4j
 public class DataInit {
-
     private final DataInit self;
     private final MemberService memberService;
     private final PostService postService;

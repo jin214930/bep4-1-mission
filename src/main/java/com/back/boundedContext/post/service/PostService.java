@@ -2,8 +2,11 @@ package com.back.boundedContext.post.service;
 
 import com.back.boundedContext.member.entity.Member;
 import com.back.boundedContext.post.entity.Post;
-import com.back.global.exception.DomainException;
 import com.back.boundedContext.post.repository.PostRepository;
+import com.back.global.event.EventPublisher;
+import com.back.global.exception.DomainException;
+import com.back.shared.post.dto.PostDto;
+import com.back.shared.post.event.PostCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +14,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final EventPublisher eventPublisher;
 
     public long count() {
         return postRepository.count();
     }
 
     public Post create(String title, String content, Member author) {
-        Post post = new Post(title, content, author);
-        author.increaseScore(3);
-        return postRepository.save(post);
+        Post post = postRepository.save(new Post(title, content, author));
+
+        eventPublisher.publish(new PostCreatedEvent(new PostDto(post)));
+        
+        return post;
     }
 
     public Post findById(long id) {

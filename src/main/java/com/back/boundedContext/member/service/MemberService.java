@@ -30,4 +30,10 @@ public class MemberService {
                 () -> new DomainException("404-1", "존재하지 않는 username입니다.")
         );
     }
+
+    public Member findById(long id) {
+        return memberRepository.findById(id).orElseThrow(
+                () -> new DomainException("404-1", "존재하지 않는 회원입니다.")
+        );
+    }
 }
