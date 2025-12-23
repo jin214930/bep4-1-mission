@@ -1,7 +1,9 @@
 package com.back.initData;
 
 import com.back.entity.Member;
+import com.back.entity.Post;
 import com.back.service.MemberService;
+import com.back.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
@@ -15,15 +17,20 @@ public class DataInit {
 
     private final DataInit self;
     private final MemberService memberService;
+    private final PostService postService;
 
-    public DataInit(@Lazy DataInit self, MemberService memberService) {
+    public DataInit(@Lazy DataInit self, MemberService memberService, PostService postService) {
         this.self = self;
         this.memberService = memberService;
+        this.postService = postService;
     }
 
     @Bean
     public ApplicationRunner baseInitDataRunner() {
-        return _ -> self.makeBaseMembers();
+        return _ -> {
+            self.makeBaseMembers();
+            self.makeBasePosts();
+        };
     }
 
     @Transactional
@@ -36,5 +43,21 @@ public class DataInit {
         Member user1Member = memberService.join("user1", "1234", "유저1");
         Member user2Member = memberService.join("user2", "1234", "유저2");
         Member user3Member = memberService.join("user3", "1234", "유저3");
+    }
+
+    @Transactional
+    public void makeBasePosts() {
+        if (postService.count() > 0) return;
+
+        Member user1 = memberService.findByUsername("user1");
+        Member user2 = memberService.findByUsername("user2");
+        Member user3 = memberService.findByUsername("user3");
+
+        Post user1Post1 = postService.create("제목1-1", "내용1-1", user1);
+        Post user1Post2 = postService.create("제목1-2", "내용1-2", user1);
+        Post user1Post3 = postService.create("제목1-3", "내용1-3", user1);
+        Post user2Post1 = postService.create("제목2-1", "내용2-1", user2);
+        Post user2Post2 = postService.create("제목2-2", "내용2-2", user2);
+        Post user3Post1 = postService.create("제목3-1", "내용3-1", user3);
     }
 }
