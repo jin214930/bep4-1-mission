@@ -1,0 +1,27 @@
+package com.back.entity;
+
+import com.back.jpa.entity.BaseIdAndTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+public class Comment extends BaseIdAndTime {
+    @Column(columnDefinition = "TEXT")
+    private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member author;
+
+    public Comment(String content, Post post, Member author) {
+        this.content = content;
+        this.post = post;
+        this.author = author;
+    }
+}

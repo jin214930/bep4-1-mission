@@ -30,6 +30,7 @@ public class DataInit {
         return _ -> {
             self.makeBaseMembers();
             self.makeBasePosts();
+            self.makeBaseComments();
         };
     }
 
@@ -59,5 +60,33 @@ public class DataInit {
         Post user2Post1 = postService.create("제목2-1", "내용2-1", user2);
         Post user2Post2 = postService.create("제목2-2", "내용2-2", user2);
         Post user3Post1 = postService.create("제목3-1", "내용3-1", user3);
+    }
+
+    @Transactional
+    public void makeBaseComments() {
+        Post post1 = postService.findById(1);
+        Post post2 = postService.findById(2);
+        Post post3 = postService.findById(3);
+        Post post4 = postService.findById(4);
+        Post post5 = postService.findById(5);
+        Post post6 = postService.findById(6);
+
+        Member user1Member = memberService.findByUsername("user1");
+        Member user2Member = memberService.findByUsername("user2");
+        Member user3Member = memberService.findByUsername("user3");
+
+        if (post1.hasComments()) return;
+
+        post1.addComment(user1Member, "댓글1");
+        post1.addComment(user2Member, "댓글2");
+        post1.addComment(user3Member, "댓글3");
+
+        post2.addComment(user2Member, "댓글4");
+        post2.addComment(user2Member, "댓글5");
+
+        post3.addComment(user3Member, "댓글6");
+        post3.addComment(user3Member, "댓글7");
+
+        post4.addComment(user1Member, "댓글8");
     }
 }
