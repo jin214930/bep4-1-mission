@@ -32,6 +32,7 @@ public class Post extends BaseIdAndTime {
     }
 
     public void addComment(Member author, String content) {
+        author.increaseScore(1);
         comments.add(new Comment(content, this, author));
     }
 }
