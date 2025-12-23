@@ -1,4 +1,4 @@
-package com.back.boundedContext.global.jpa.entity;
+package com.back.global.jpa.entity;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
