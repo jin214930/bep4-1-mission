@@ -4,6 +4,7 @@ import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.exception.DomainException;
+import com.back.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class PostFacade {
     }
 
     @Transactional
-    public Post create(String title, String content, Member author) {
+    public RsData<Post> create(String title, String content, Member author) {
         return postCreateUseCase.create(title, content, author);
     }
 }

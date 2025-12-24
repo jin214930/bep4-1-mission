@@ -53,12 +53,12 @@ public class DataInit {
         Member user2 = memberFacade.findByUsername("user2");
         Member user3 = memberFacade.findByUsername("user3");
 
-        Post user1Post1 = postFacade.create("제목1-1", "내용1-1", user1);
-        Post user1Post2 = postFacade.create("제목1-2", "내용1-2", user1);
-        Post user1Post3 = postFacade.create("제목1-3", "내용1-3", user1);
-        Post user2Post1 = postFacade.create("제목2-1", "내용2-1", user2);
-        Post user2Post2 = postFacade.create("제목2-2", "내용2-2", user2);
-        Post user3Post1 = postFacade.create("제목3-1", "내용3-1", user3);
+        Post user1Post1 = postFacade.create("제목1-1", "내용1-1", user1).getData();
+        Post user1Post2 = postFacade.create("제목1-2", "내용1-2", user1).getData();
+        Post user1Post3 = postFacade.create("제목1-3", "내용1-3", user1).getData();
+        Post user2Post1 = postFacade.create("제목2-1", "내용2-1", user2).getData();
+        Post user2Post2 = postFacade.create("제목2-2", "내용2-2", user2).getData();
+        Post user3Post1 = postFacade.create("제목3-1", "내용3-1", user3).getData();
     }
 
     @Transactional
