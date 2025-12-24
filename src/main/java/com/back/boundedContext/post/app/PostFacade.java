@@ -3,34 +3,31 @@ package com.back.boundedContext.post.app;
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.out.PostRepository;
-import com.back.global.event.EventPublisher;
 import com.back.global.exception.DomainException;
-import com.back.shared.post.dto.PostDto;
-import com.back.shared.post.event.PostCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class PostService {
+public class PostFacade {
     private final PostRepository postRepository;
-    private final EventPublisher eventPublisher;
+    private final PostCreateUseCase postCreateUseCase;
 
+    @Transactional(readOnly = true)
     public long count() {
         return postRepository.count();
     }
 
-    public Post create(String title, String content, Member author) {
-        Post post = postRepository.save(new Post(title, content, author));
-
-        eventPublisher.publish(new PostCreatedEvent(new PostDto(post)));
-
-        return post;
-    }
-
+    @Transactional(readOnly = true)
     public Post findById(long id) {
         return postRepository.findById(id).orElseThrow(
                 () -> new DomainException("404-1", "존재하지 않는 게시글입니다.")
         );
+    }
+
+    @Transactional
+    public Post create(String title, String content, Member author) {
+        return postCreateUseCase.create(title, content, author);
     }
 }

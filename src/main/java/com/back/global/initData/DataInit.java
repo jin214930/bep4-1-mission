@@ -2,7 +2,7 @@ package com.back.global.initData;
 
 import com.back.boundedContext.member.app.MemberFacade;
 import com.back.boundedContext.member.domain.Member;
-import com.back.boundedContext.post.app.PostService;
+import com.back.boundedContext.post.app.PostFacade;
 import com.back.boundedContext.post.domain.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
@@ -16,12 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class DataInit {
     private final DataInit self;
     private final MemberFacade memberFacade;
-    private final PostService postService;
+    private final PostFacade postFacade;
 
-    public DataInit(@Lazy DataInit self, MemberFacade memberFacade, PostService postService) {
+    public DataInit(@Lazy DataInit self, MemberFacade memberFacade, PostFacade postFacade) {
         this.self = self;
         this.memberFacade = memberFacade;
-        this.postService = postService;
+        this.postFacade = postFacade;
     }
 
     @Bean
@@ -47,28 +47,28 @@ public class DataInit {
 
     @Transactional
     public void makeBasePosts() {
-        if (postService.count() > 0) return;
+        if (postFacade.count() > 0) return;
 
         Member user1 = memberFacade.findByUsername("user1");
         Member user2 = memberFacade.findByUsername("user2");
         Member user3 = memberFacade.findByUsername("user3");
 
-        Post user1Post1 = postService.create("제목1-1", "내용1-1", user1);
-        Post user1Post2 = postService.create("제목1-2", "내용1-2", user1);
-        Post user1Post3 = postService.create("제목1-3", "내용1-3", user1);
-        Post user2Post1 = postService.create("제목2-1", "내용2-1", user2);
-        Post user2Post2 = postService.create("제목2-2", "내용2-2", user2);
-        Post user3Post1 = postService.create("제목3-1", "내용3-1", user3);
+        Post user1Post1 = postFacade.create("제목1-1", "내용1-1", user1);
+        Post user1Post2 = postFacade.create("제목1-2", "내용1-2", user1);
+        Post user1Post3 = postFacade.create("제목1-3", "내용1-3", user1);
+        Post user2Post1 = postFacade.create("제목2-1", "내용2-1", user2);
+        Post user2Post2 = postFacade.create("제목2-2", "내용2-2", user2);
+        Post user3Post1 = postFacade.create("제목3-1", "내용3-1", user3);
     }
 
     @Transactional
     public void makeBaseComments() {
-        Post post1 = postService.findById(1);
-        Post post2 = postService.findById(2);
-        Post post3 = postService.findById(3);
-        Post post4 = postService.findById(4);
-        Post post5 = postService.findById(5);
-        Post post6 = postService.findById(6);
+        Post post1 = postFacade.findById(1);
+        Post post2 = postFacade.findById(2);
+        Post post3 = postFacade.findById(3);
+        Post post4 = postFacade.findById(4);
+        Post post5 = postFacade.findById(5);
+        Post post6 = postFacade.findById(6);
 
         Member user1Member = memberFacade.findByUsername("user1");
         Member user2Member = memberFacade.findByUsername("user2");
