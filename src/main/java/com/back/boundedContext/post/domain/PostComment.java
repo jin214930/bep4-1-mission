@@ -1,6 +1,5 @@
 package com.back.boundedContext.post.domain;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.global.jpa.entity.BaseIdAndTime;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,9 +17,9 @@ public class PostComment extends BaseIdAndTime {
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member author;
+    private PostMember author;
 
-    public PostComment(String content, Post post, Member author) {
+    public PostComment(String content, Post post, PostMember author) {
         this.content = content;
         this.post = post;
         this.author = author;

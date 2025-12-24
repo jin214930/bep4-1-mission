@@ -37,7 +37,7 @@ public class Post extends BaseIdAndTime {
         return !postComments.isEmpty();
     }
 
-    public void addComment(Member author, String content) {
+    public void addComment(PostMember author, String content) {
         PostComment postComment = new PostComment(content, this, author);
         postComments.add(postComment);
         publishEvent(new CommentCreatedEvent(new PostCommentDto(postComment)));
