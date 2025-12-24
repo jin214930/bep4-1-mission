@@ -6,10 +6,12 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter
-public class BaseEntity {
+public abstract class BaseEntity {
     public String getModelTypeCode() {
         return this.getClass().getSimpleName();
     }
@@ -17,4 +19,10 @@ public class BaseEntity {
     protected void publishEvent(Object event) {
         GlobalConfig.getEventPublisher().publish(event);
     }
+
+    public abstract Long getId();
+
+    public abstract LocalDateTime getCreatedDate();
+
+    public abstract LocalDateTime getModifiedDate();
 }
