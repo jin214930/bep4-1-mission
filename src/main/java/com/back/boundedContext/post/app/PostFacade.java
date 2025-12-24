@@ -2,9 +2,12 @@ package com.back.boundedContext.post.app;
 
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
+import com.back.boundedContext.post.domain.PostMember;
+import com.back.boundedContext.post.out.PostMemberRepository;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.exception.DomainException;
 import com.back.global.rsData.RsData;
+import com.back.shared.post.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PostFacade {
     private final PostRepository postRepository;
+    private final PostMemberRepository postMemberRepository;
     private final PostCreateUseCase postCreateUseCase;
 
     @Transactional(readOnly = true)
@@ -30,5 +34,13 @@ public class PostFacade {
     @Transactional
     public RsData<Post> create(String title, String content, Member author) {
         return postCreateUseCase.create(title, content, author);
+    }
+
+    public PostMember syncMember(MemberDto memberDto) {
+        PostMember postMember = new PostMember(memberDto.getUsername(), "", memberDto.getNickname());
+        postMember.setId(memberDto.getId());
+        postMember.setCreatedDate(memberDto.getCreatedDate());
+        postMember.setModifiedDate(memberDto.getModifiedDate());
+        return postMemberRepository.save(postMember);
     }
 }
