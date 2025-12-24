@@ -43,7 +43,8 @@ public class PostFacade {
                 memberDto.getModifiedDate(),
                 memberDto.getUsername(),
                 "",
-                memberDto.getNickname()
+                memberDto.getNickname(),
+                memberDto.getActiveScore()
         );
         return postMemberRepository.save(postMember);
     }

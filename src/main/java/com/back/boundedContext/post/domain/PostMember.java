@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "POST_MEMBER")
 public class PostMember extends ReplicaMember {
-    public PostMember(Long id, LocalDateTime createdDate, LocalDateTime modifiedDate, String username, String password, String nickname) {
-        super(id, createdDate, modifiedDate, username, password, nickname);
+    public PostMember(Long id, LocalDateTime createdDate, LocalDateTime modifiedDate, String username, String password, String nickname, int activeScore) {
+        super(id, createdDate, modifiedDate, username, password, nickname, activeScore);
     }
 }
