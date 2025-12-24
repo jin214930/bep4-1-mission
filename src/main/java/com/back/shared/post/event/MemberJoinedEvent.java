@@ -1,6 +1,6 @@
 package com.back.shared.post.event;
 
-import com.back.shared.post.dto.MemberDto;
+import com.back.shared.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -5,7 +5,7 @@ import com.back.boundedContext.member.out.MemberRepository;
 import com.back.global.event.EventPublisher;
 import com.back.global.exception.DomainException;
 import com.back.global.rsData.RsData;
-import com.back.shared.post.dto.MemberDto;
+import com.back.shared.member.dto.MemberDto;
 import com.back.shared.post.event.MemberJoinedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
