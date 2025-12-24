@@ -2,7 +2,7 @@ package com.back.boundedContext.post.domain;
 
 import com.back.global.jpa.entity.BaseIdAndTime;
 import com.back.boundedContext.member.domain.Member;
-import com.back.shared.post.dto.CommentDto;
+import com.back.shared.post.dto.PostCommentDto;
 import com.back.shared.post.event.CommentCreatedEvent;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "POST_POST")
 public class Post extends BaseIdAndTime {
     private String title;
 
@@ -24,7 +25,7 @@ public class Post extends BaseIdAndTime {
     private Member author;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Comment> comments = new ArrayList<>();
+    private final List<PostComment> postComments = new ArrayList<>();
 
     public Post(String title, String content, Member author) {
         this.title = title;
@@ -33,12 +34,12 @@ public class Post extends BaseIdAndTime {
     }
 
     public boolean hasComments() {
-        return !comments.isEmpty();
+        return !postComments.isEmpty();
     }
 
     public void addComment(Member author, String content) {
-        Comment comment = new Comment(content, this, author);
-        comments.add(comment);
-        publishEvent(new CommentCreatedEvent(new CommentDto(comment)));
+        PostComment postComment = new PostComment(content, this, author);
+        postComments.add(postComment);
+        publishEvent(new CommentCreatedEvent(new PostCommentDto(postComment)));
     }
 }

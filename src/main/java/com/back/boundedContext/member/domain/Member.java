@@ -1,31 +1,21 @@
 package com.back.boundedContext.member.domain;
 
-import com.back.global.jpa.entity.BaseIdAndTime;
-import jakarta.persistence.Column;
+import com.back.shared.member.domain.SourceMember;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class Member extends BaseIdAndTime {
-    @Column(unique = true)
-    private String username;
-
-    private String password;
-
-    private String nickname;
-
-    private int activeScore;
-
+@Table(name = "MEMBER_MEMBER")
+public class Member extends SourceMember {
     public Member(String username, String password, String nickname) {
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
+        super(username, password, nickname);
     }
 
     public void increaseScore(int score) {
-        activeScore += score;
+        setActiveScore(getActiveScore() + score);
     }
 }
