@@ -22,12 +22,12 @@ public class Post extends BaseIdAndTime {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member author;
+    private PostMember author;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<PostComment> postComments = new ArrayList<>();
 
-    public Post(String title, String content, Member author) {
+    public Post(String title, String content, PostMember author) {
         this.title = title;
         this.content = content;
         this.author = author;

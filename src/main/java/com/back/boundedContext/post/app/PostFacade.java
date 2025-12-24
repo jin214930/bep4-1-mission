@@ -1,6 +1,5 @@
 package com.back.boundedContext.post.app;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.domain.PostMember;
 import com.back.boundedContext.post.out.PostMemberRepository;
@@ -32,7 +31,7 @@ public class PostFacade {
     }
 
     @Transactional
-    public RsData<Post> create(String title, String content, Member author) {
+    public RsData<Post> create(String title, String content, PostMember author) {
         return postCreateUseCase.create(title, content, author);
     }
 
@@ -47,5 +46,12 @@ public class PostFacade {
                 memberDto.getActiveScore()
         );
         return postMemberRepository.save(postMember);
+    }
+
+    @Transactional(readOnly = true)
+    public PostMember findByUsername(String username) {
+        return postMemberRepository.findByUsername(username).orElseThrow(
+                () -> new DomainException("404-1", "존재하지 않는 username입니다.")
+        );
     }
 }

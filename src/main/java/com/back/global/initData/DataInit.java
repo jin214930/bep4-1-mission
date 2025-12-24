@@ -4,6 +4,7 @@ import com.back.boundedContext.member.app.MemberFacade;
 import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.app.PostFacade;
 import com.back.boundedContext.post.domain.Post;
+import com.back.boundedContext.post.domain.PostMember;
 import com.back.global.rsData.RsData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
@@ -50,9 +51,9 @@ public class DataInit {
     public void makeBasePosts() {
         if (postFacade.count() > 0) return;
 
-        Member user1 = memberFacade.findByUsername("user1");
-        Member user2 = memberFacade.findByUsername("user2");
-        Member user3 = memberFacade.findByUsername("user3");
+        PostMember user1 = postFacade.findByUsername("user1");
+        PostMember user2 = postFacade.findByUsername("user2");
+        PostMember user3 = postFacade.findByUsername("user3");
 
         RsData<Post> post1RsData = postFacade.create("제목1", "내용1", user1);
         log.debug(post1RsData.getMsg());

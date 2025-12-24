@@ -1,7 +1,7 @@
 package com.back.boundedContext.post.app;
 
-import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
+import com.back.boundedContext.post.domain.PostMember;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.event.EventPublisher;
 import com.back.global.rsData.RsData;
@@ -18,7 +18,7 @@ public class PostCreateUseCase {
     private final EventPublisher eventPublisher;
     private final MemberApiClient memberApiClient;
 
-    public RsData<Post> create(String title, String content, Member author) {
+    public RsData<Post> create(String title, String content, PostMember author) {
         Post post = postRepository.save(new Post(title, content, author));
 
         eventPublisher.publish(new PostCreatedEvent(new PostDto(post)));
