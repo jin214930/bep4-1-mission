@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MarketFacade {
@@ -41,5 +43,13 @@ public class MarketFacade {
     @Transactional
     public Cart createCart(MarketMemberDto memberDto) {
         return marketCreateCartUseCase.createCart(memberDto);
+    }
+
+    public Cart findCartByCustomer(MarketMember member) {
+        return marketSupport.findCartByCustomer(member);
+    }
+
+    public Product findProductById(long id) {
+        return marketSupport.findProductById(id);
     }
 }
