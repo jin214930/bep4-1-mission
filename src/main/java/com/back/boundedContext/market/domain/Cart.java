@@ -32,4 +32,8 @@ public class Cart extends BaseManualIdAndTime {
         CartItem cartItem = new CartItem(this, product);
         items.add(cartItem);
     }
+
+    public void clearItems() {
+        items.clear();
+    }
 }
