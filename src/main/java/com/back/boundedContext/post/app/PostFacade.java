@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PostFacade {
@@ -35,7 +37,13 @@ public class PostFacade {
         return postCreateUseCase.create(title, content, author);
     }
 
-    public PostMember syncMember(MemberDto memberDto) {
-        return postSyncMemberUseCase.syncMember(memberDto);
+    @Transactional
+    public void syncMember(MemberDto memberDto) {
+        postSyncMemberUseCase.syncMember(memberDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> findByOrderByIdDesc() {
+        return postSupport.findByOrderByIdDesc();
     }
 }

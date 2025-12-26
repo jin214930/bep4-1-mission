@@ -3,19 +3,21 @@ package com.back.shared.post.dto;
 import com.back.boundedContext.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class PostDto {
-    private final long id;
-    private final LocalDateTime createdDate;
-    private final LocalDateTime modifiedDate;
-    private final String title;
-    private final String content;
-    private final long authorId;
-    private final String authorName;
+    private long id;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
+    private String title;
+    private String content;
+    private long authorId;
+    private String authorName;
 
     public PostDto(Post post) {
         this(

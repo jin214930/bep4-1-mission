@@ -8,6 +8,8 @@ import com.back.global.exception.DomainException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class PostSupport {
@@ -28,5 +30,9 @@ public class PostSupport {
         return postMemberRepository.findByUsername(username).orElseThrow(
                 () -> new DomainException("404-1", "존재하지 않는 username입니다.")
         );
+    }
+
+    public List<Post> findByOrderByIdDesc() {
+        return postRepository.findByOrderByIdDesc();
     }
 }
