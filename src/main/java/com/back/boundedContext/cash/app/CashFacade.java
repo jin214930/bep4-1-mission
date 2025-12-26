@@ -2,6 +2,7 @@ package com.back.boundedContext.cash.app;
 
 import com.back.boundedContext.cash.domain.CashMember;
 import com.back.boundedContext.cash.domain.Wallet;
+import com.back.shared.cash.dto.CashMemberDto;
 import com.back.shared.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,14 @@ public class CashFacade {
     private final CashSyncMemberUseCase cashSyncMemberUseCase;
     private final CashSupport cashSupport;
 
-
     @Transactional
     public CashMember syncMember(MemberDto memberDto) {
         return cashSyncMemberUseCase.syncMember(memberDto);
     }
 
     @Transactional
-    public Wallet createWallet(CashMember holder) {
-        return cashCreateWalletUseCase.createWallet(holder);
+    public Wallet createWallet(CashMemberDto memberDto) {
+        return cashCreateWalletUseCase.createWallet(memberDto);
     }
 
     @Transactional(readOnly = true)
