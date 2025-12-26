@@ -23,11 +23,10 @@ public class PostSupport {
                 () -> new DomainException("404-1", "존재하지 않는 게시글입니다.")
         );
     }
-    
+
     public PostMember findByUsername(String username) {
         return postMemberRepository.findByUsername(username).orElseThrow(
                 () -> new DomainException("404-1", "존재하지 않는 username입니다.")
         );
     }
-
 }

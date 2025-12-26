@@ -38,6 +38,4 @@ public class PostFacade {
     public PostMember syncMember(MemberDto memberDto) {
         return postSyncMemberUseCase.syncMember(memberDto);
     }
-
-
 }
