@@ -1,0 +1,26 @@
+package com.back.boundedContext.post.app;
+
+import com.back.boundedContext.post.domain.PostMember;
+import com.back.boundedContext.post.out.PostMemberRepository;
+import com.back.shared.member.dto.MemberDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class PostSyncMemberUseCase {
+    private final PostMemberRepository postMemberRepository;
+
+    public PostMember syncMember(MemberDto memberDto) {
+        PostMember postMember = new PostMember(
+                memberDto.getId(),
+                memberDto.getCreatedDate(),
+                memberDto.getModifiedDate(),
+                memberDto.getUsername(),
+                "",
+                memberDto.getNickname(),
+                memberDto.getActiveScore()
+        );
+        return postMemberRepository.save(postMember);
+    }
+}
