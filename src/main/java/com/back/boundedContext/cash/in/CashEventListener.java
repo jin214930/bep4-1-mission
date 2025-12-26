@@ -1,6 +1,7 @@
 package com.back.boundedContext.cash.in;
 
 import com.back.boundedContext.cash.app.CashFacade;
+import com.back.boundedContext.cash.domain.CashMember;
 import com.back.shared.post.event.MemberJoinedEvent;
 import com.back.shared.post.event.MemberModifiedEvent;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ public class CashEventListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void handle(MemberJoinedEvent event) {
-        cashFacade.syncMember(event.getMemberDto());
+        CashMember member = cashFacade.syncMember(event.getMemberDto());
+        cashFacade.createWallet(member);
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
