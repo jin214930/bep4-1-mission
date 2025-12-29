@@ -16,7 +16,7 @@ public class OrderItem extends BaseIdAndTime {
     private String productName;
     private int price;
     private int salePrice;
-    private int payoutRate = MarketPolicy.PRODUCT_PAYOUT_RATE;
+    private double payoutRate = MarketPolicy.PRODUCT_PAYOUT_RATE;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
