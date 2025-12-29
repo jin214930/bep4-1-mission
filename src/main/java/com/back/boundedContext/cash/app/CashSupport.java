@@ -1,6 +1,7 @@
 package com.back.boundedContext.cash.app;
 
 import com.back.boundedContext.cash.domain.CashMember;
+import com.back.boundedContext.cash.domain.CashPolicy;
 import com.back.boundedContext.cash.domain.Wallet;
 import com.back.boundedContext.cash.out.CashMemberRepository;
 import com.back.boundedContext.cash.out.WalletRepository;
@@ -22,6 +23,18 @@ public class CashSupport {
 
     public Wallet findWalletByHolder(CashMember holder) {
         return walletRepository.findByHolder(holder).orElseThrow(
+                () -> new DomainException("404-1", "존재하지 않는 회원입니다.")
+        );
+    }
+
+    public Wallet findWalletByHolderId(Long customerId) {
+        return walletRepository.findByHolderId(customerId).orElseThrow(
+                () -> new DomainException("404-1", "존재하지 않는 회원입니다.")
+        );
+    }
+
+    public Wallet findHoldingWallet() {
+        return walletRepository.findByHolderId(CashPolicy.HOLDING_MEMBER_ID).orElseThrow(
                 () -> new DomainException("404-1", "존재하지 않는 회원입니다.")
         );
     }
