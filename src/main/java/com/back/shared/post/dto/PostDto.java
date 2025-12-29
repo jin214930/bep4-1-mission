@@ -1,6 +1,5 @@
 package com.back.shared.post.dto;
 
-import com.back.boundedContext.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,16 +17,4 @@ public class PostDto {
     private String content;
     private long authorId;
     private String authorName;
-
-    public PostDto(Post post) {
-        this(
-                post.getId(),
-                post.getCreatedDate(),
-                post.getModifiedDate(),
-                post.getTitle(),
-                post.getContent(),
-                post.getAuthor().getId(),
-                post.getAuthor().getNickname()
-        );
-    }
 }

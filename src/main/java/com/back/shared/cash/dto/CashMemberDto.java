@@ -1,6 +1,5 @@
 package com.back.shared.cash.dto;
 
-import com.back.boundedContext.cash.domain.CashMember;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,16 +14,4 @@ public class CashMemberDto {
     private final String username;
     private final String nickname;
     private final int activeScore;
-
-    public CashMemberDto(CashMember member) {
-        this(
-                member.getId(),
-                member.getCreatedDate(),
-                member.getModifiedDate(),
-                member.getUsername(),
-                member.getNickname(),
-                member.getActiveScore()
-        );
-    }
-
 }

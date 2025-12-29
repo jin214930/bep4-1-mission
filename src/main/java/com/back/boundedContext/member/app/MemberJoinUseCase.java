@@ -5,7 +5,6 @@ import com.back.boundedContext.member.out.MemberRepository;
 import com.back.global.event.EventPublisher;
 import com.back.global.exception.DomainException;
 import com.back.global.rsData.RsData;
-import com.back.shared.member.dto.MemberDto;
 import com.back.shared.post.event.MemberJoinedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class MemberJoinUseCase {
 
         Member member = memberRepository.save(memberRepository.save(new Member(username, password, nickname)));
 
-        eventPublisher.publish(new MemberJoinedEvent(new MemberDto(member)));
+        eventPublisher.publish(new MemberJoinedEvent(member.toDto()));
 
         return new RsData<>("201-1", "%d번 회원의 회원가입이 완료되었습니다.".formatted(member.getId()), member);
     }

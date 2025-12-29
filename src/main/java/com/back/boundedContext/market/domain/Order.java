@@ -37,6 +37,20 @@ public class Order extends BaseIdAndTime {
         });
     }
 
+    public OrderDto toDto() {
+        return new OrderDto(
+                getId(),
+                getCreatedDate(),
+                getModifiedDate(),
+                customer.getId(),
+                customer.getUsername(),
+                price,
+                salePrice,
+                requestPaymentDate,
+                paymentDate
+        );
+    }
+
     public void addItem(Product product) {
         OrderItem orderItem = new OrderItem(
                 product.getName(),
@@ -65,7 +79,7 @@ public class Order extends BaseIdAndTime {
 
         publishEvent(
                 new MarketOrderPaymentRequestedEvent(
-                        new OrderDto(this),
+                        toDto(),
                         pgPaymentAmount
                 )
         );
