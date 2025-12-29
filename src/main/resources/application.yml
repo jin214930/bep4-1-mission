@@ -42,4 +42,4 @@ custom:
       payments:
         secretKey: ${TOSS_PAYMENTS_SECRET_KEY}
     product:
-      payoutRate:90
+      payoutRate: 90

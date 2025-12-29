@@ -3,7 +3,6 @@ package com.back.boundedContext.market.app;
 import com.back.boundedContext.market.domain.Order;
 import com.back.boundedContext.market.out.OrderRepository;
 import com.back.global.exception.DomainException;
-import com.back.shared.cash.event.CashOrderPaymentSucceededEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Service;
 public class MarketCompleteOrderPaymentUseCase {
     private final OrderRepository orderRepository;
 
-    public void handle(CashOrderPaymentSucceededEvent event) {
-        Order order = orderRepository.findById(event.getOrderDto().getId()).orElseThrow(
+    public void completePayment(long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(
                 () -> new DomainException("404-1", "존재하지 않는 주문입니다.")
         );
 
