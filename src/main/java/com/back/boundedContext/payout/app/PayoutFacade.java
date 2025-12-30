@@ -18,6 +18,7 @@ import java.util.List;
 public class PayoutFacade {
     private final PayoutSyncMemberUseCase payoutSyncMemberUseCase;
     private final PayoutCreateUseCase payoutCreateUseCase;
+    private final PayoutCompletePayoutsMoreUseCase payoutCompletePayoutsMoreUseCase;
     private final PayoutAddPayoutCandidateItemsUseCase payoutAddPayoutCandidateItemsUseCase;
     private final PayoutCollectPayoutItemsMoreUseCase payoutCollectPayoutItemsMoreUseCase;
     private final PayoutSupport payoutSupport;
@@ -28,8 +29,8 @@ public class PayoutFacade {
     }
 
     @Transactional
-    public Payout createPayout(PayoutMemberDto memberDto) {
-        return payoutCreateUseCase.createPayout(memberDto);
+    public Payout createPayout(Long payeeId) {
+        return payoutCreateUseCase.createPayout(payeeId);
     }
 
     @Transactional
@@ -45,5 +46,10 @@ public class PayoutFacade {
     @Transactional
     public RsData<Integer> collectPayoutItemsMore(int limit) {
         return payoutCollectPayoutItemsMoreUseCase.collectPayoutItemsMore(limit);
+    }
+
+    @Transactional
+    public RsData<Integer> completePayoutsMore(int limit) {
+        return payoutCompletePayoutsMoreUseCase.completePayoutsMore(limit);
     }
 }

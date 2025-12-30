@@ -4,6 +4,7 @@ import com.back.boundedContext.cash.app.CashFacade;
 import com.back.boundedContext.cash.domain.CashMember;
 import com.back.shared.cash.event.CashMemberCreatedEvent;
 import com.back.shared.market.event.MarketOrderPaymentRequestedEvent;
+import com.back.shared.payout.event.PayoutCompletedEvent;
 import com.back.shared.post.event.MemberJoinedEvent;
 import com.back.shared.post.event.MemberModifiedEvent;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,11 @@ public class CashEventListener {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void handle(MarketOrderPaymentRequestedEvent event) {
         cashFacade.completeOrderPayment(event.getOrderDto(), event.getPgPaymentAmount());
+    }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void handle(PayoutCompletedEvent event) {
+        cashFacade.completePayout(event.getPayoutDto());
     }
 }

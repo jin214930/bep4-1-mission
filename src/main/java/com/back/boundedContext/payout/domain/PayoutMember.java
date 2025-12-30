@@ -24,4 +24,8 @@ public class PayoutMember extends ReplicaMember {
                 getActiveScore()
         );
     }
+
+    public boolean isSystem() {
+        return getUsername().equals("system");
+    }
 }

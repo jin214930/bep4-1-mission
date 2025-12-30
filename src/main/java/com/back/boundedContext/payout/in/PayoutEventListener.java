@@ -2,6 +2,7 @@ package com.back.boundedContext.payout.in;
 
 import com.back.boundedContext.payout.app.PayoutFacade;
 import com.back.shared.market.event.MarketOrderPaymentCompletedEvent;
+import com.back.shared.payout.event.PayoutCompletedEvent;
 import com.back.shared.payout.event.PayoutMemberCreatedEvent;
 import com.back.shared.post.event.MemberJoinedEvent;
 import com.back.shared.post.event.MemberModifiedEvent;
@@ -32,7 +33,7 @@ public class PayoutEventListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void handle(PayoutMemberCreatedEvent event) {
-        payoutFacade.createPayout(event.getMemberDto());
+        payoutFacade.createPayout(event.getMemberDto().getId());
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -41,5 +42,9 @@ public class PayoutEventListener {
         payoutFacade.addPayoutCandidateItems(event.getOrderDto());
     }
 
-
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void handle(PayoutCompletedEvent event) {
+        payoutFacade.createPayout(event.getPayoutDto().getPayeeId());
+    }
 }
