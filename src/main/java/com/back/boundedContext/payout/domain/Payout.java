@@ -4,6 +4,7 @@ import com.back.global.jpa.entity.BaseIdAndTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Payout extends BaseIdAndTime {
+    @Setter
     private LocalDateTime payoutDate;
 
     private long amount;
@@ -28,7 +30,7 @@ public class Payout extends BaseIdAndTime {
         this.payee = payee;
     }
 
-    public PayoutItem addItem(PayoutEventType eventType, String relTypeCode, long relId, LocalDateTime payDate, PayoutMember payer, long amount) {
+    public PayoutItem addItem(PayoutEventType eventType, String relTypeCode, long relId, LocalDateTime payDate, PayoutMember payer, PayoutMember payee, long amount) {
         PayoutItem item = new PayoutItem(this, eventType, relTypeCode, relId, payDate, payer, payee, amount);
         items.add(item);
         this.amount += amount;
